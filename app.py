@@ -1,7 +1,7 @@
 # Setting up environment
 # To run this app, save the code as a .py file (e.g., app.py) and run `streamlit run app.py` in your terminal.
 # You will need to install some new libraries:
-# pip install streamlit pandas numpy yfinance plotly scipy fpdf2 kaleido
+# pip install streamlit pandas numpy yfinance plotly scipy
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -10,7 +10,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
 from scipy import optimize
-from fpdf2 import FPDF
 import base64
 import plotly.io as pio
 import os
@@ -113,92 +112,8 @@ def calculate_advanced_metrics(daily_returns, weights):
     max_drawdown = drawdown.min()
     return var_95, max_drawdown
 
-# --- PDF REPORT GENERATION ---
-class PDF(FPDF):
-    def header(self):
-        self.set_font('Arial', 'B', 12)
-        self.cell(0, 10, 'Portfolio Optimizer Pro - Financial Report', 0, 1, 'C')
-        self.set_font('Arial', '', 8)
-        self.cell(0, 5, f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", 0, 1, 'C')
-        self.ln(5)
-
-    def footer(self):
-        self.set_y(-15)
-        self.set_font('Arial', 'I', 8)
-        self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
-
-    def chapter_title(self, title):
-        self.set_font('Arial', 'B', 12)
-        self.cell(0, 10, title, 0, 1, 'L')
-        self.ln(2)
-
-    def dataframe_to_table(self, df, title):
-        self.chapter_title(title)
-        self.set_font('Arial', 'B', 9)
-        headers = list(df.columns)
-        col_widths = [max(self.get_string_width(h), 25) + 6 for h in headers]
-        for i, header in enumerate(headers):
-            self.cell(col_widths[i], 8, header, 1, 0, 'C')
-        self.ln()
-        self.set_font('Arial', '', 9)
-        for _, row in df.iterrows():
-            for i, item in enumerate(row):
-                self.cell(col_widths[i], 8, str(item), 1)
-            self.ln()
-        self.ln(5)
-
-def generate_pdf_report(data):
-    pdf = PDF()
-    pdf.add_page()
-    
-    pdf.chapter_title("1. Portfolio Summary")
-    pdf.set_font("Arial", "", 10)
-    pdf.cell(80, 8, f"Optimal Return: {data['max_sharpe_portfolio']['Expected Return']:.2%}")
-    pdf.cell(80, 8, f"Volatility (Risk): {data['max_sharpe_portfolio']['Risk (Std Dev)']:.2%}")
-    pdf.ln()
-    pdf.cell(80, 8, f"Sharpe Ratio: {data['max_sharpe_portfolio']['Sharpe Ratio']:.2f}")
-    pdf.cell(80, 8, f"95% VaR: {data['var_95']:.2%}")
-    pdf.ln()
-    pdf.cell(80, 8, f"Max Drawdown: {data['max_drawdown']:.2%}")
-    pdf.ln(10)
-
-    if 'personalized_weights' in data:
-        personalized_df = pd.DataFrame(data['personalized_weights']).reset_index()
-        personalized_df.columns = ['Ticker', 'Weight']
-        personalized_df['Weight'] = (personalized_df['Weight'] * 100).round(2).astype(str) + '%'
-        pdf.dataframe_to_table(personalized_df.head(), "2. Your Personalized Allocation")
-    
-    if 'investment_breakdown' in data:
-        inv_df = data['investment_breakdown'].copy()
-        inv_df.index.name = "Asset"
-        inv_df.reset_index(inplace=True)
-        # Format columns for PDF
-        for col in inv_df.columns:
-            if 'Weight' in col: inv_df[col] = inv_df[col].apply(lambda x: f'{x:.2%}')
-            elif 'Amount' in col or 'Price' in col: inv_df[col] = inv_df[col].apply(lambda x: f"{data.get('currency_symbol', '₹')}{x:,.2f}")
-            elif 'Shares' in col: inv_df[col] = inv_df[col].apply(lambda x: f'{x:,.0f}')
-        pdf.dataframe_to_table(inv_df, "3. Investment Breakdown")
-
-    pdf.chapter_title("4. Visualizations")
-    temp_dir = "temp_images"
-    if not os.path.exists(temp_dir): os.makedirs(temp_dir)
-
-    try:
-        if 'backtest_fig' in data and data['backtest_fig'] is not None:
-            pdf.add_page() # Add a new page for the large chart
-            pdf.chapter_title("5. Historical Backtest Performance")
-            backtest_path = os.path.join(temp_dir, "backtest.png")
-            pio.write_image(data['backtest_fig'], backtest_path, width=800, height=500)
-            pdf.image(backtest_path, x=10, w=190)
-            pdf.ln(5)
-            
-    finally:
-        if os.path.exists(temp_dir):
-            for f in os.listdir(temp_dir):
-                os.remove(os.path.join(temp_dir, f))
-            os.rmdir(temp_dir)
-        
-    return bytes(pdf.output())
+# --- PDF REPORT GENERATION (REMOVED) ---
+# The PDF class and generate_pdf_report function are removed.
 
 # --- UI RENDERING FUNCTIONS ---
 def render_main_page():
@@ -628,20 +543,9 @@ def render_backtesting_page():
             st.plotly_chart(fig, use_container_width=True)
             st.session_state.portfolio_data['backtest_fig'] = fig
 
-    c1,c2 = st.columns([1,1])
-    with c1:
-        if st.button("⬅️ Back to Investment Plan"):
-            st.session_state.page = 'investment_plan'
-            st.rerun()
-    with c2:
-        pdf_bytes = generate_pdf_report(st.session_state.portfolio_data)
-        st.download_button(
-            label="📄 Download Full Report (PDF)",
-            data=pdf_bytes,
-            file_name=f"portfolio_report_{datetime.now().strftime('%Y%m%d')}.pdf",
-            mime="application/pdf",
-            use_container_width=True
-        )
+    if st.button("⬅️ Back to Investment Plan"):
+        st.session_state.page = 'investment_plan'
+        st.rerun()
 
 
 def render_compare_page():
