@@ -10,7 +10,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
 from scipy import optimize
-from fpdf import FPDF
+from fpdf2 import FPDF
 import base64
 import plotly.io as pio
 import os
