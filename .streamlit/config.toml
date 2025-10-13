@@ -1,0 +1,14 @@
+[server]
+# Set the port to be used by the server (often ignored by cloud hosts)
+# port = 8501
+# Run Streamlit in 'headless' mode (recommended for cloud deployment)
+headless = true
+
+[global]
+# Increase the file watcher interval for performance/stability
+# Streamlit will poll file changes less frequently
+showWarningOnDirectExecution = false
+
+[client]
+# Set to 'false' if you don't want the deployment URL in the sidebar menu
+toolbarMode = "viewer"
