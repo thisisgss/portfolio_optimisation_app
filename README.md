@@ -29,8 +29,7 @@ The easiest way to use the app is to access the live deployment.
 
 Click the badge below to launch the application instantly in your browser:
 
-[](https://www.google.com/search?q=https://thisisgss-portfolio-optimisation_app-app-l4lrbv.streamlit.app/)
-*(Please ensure this link points to your current Streamlit deployment.)*
+[Link](https://portfoliooptimisationapp-esi8juyttgjnkz4fqpkknr.streamlit.app)
 
 ### 2\. 💻 Local Setup (Recommended)
 
