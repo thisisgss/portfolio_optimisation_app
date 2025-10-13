@@ -32,9 +32,9 @@ Click the badge below to launch the application instantly in your browser:
 [](https://www.google.com/search?q=https://thisisgss-portfolio-optimisation_app-app-l4lrbv.streamlit.app/)
 *(Please ensure this link points to your current Streamlit deployment.)*
 
-### 2\. 💻 Local Setup
+### 2\. 💻 Local Setup (Recommended)
 
-To run the application on your machine:
+To run the application on your local machine:
 
 #### **Prerequisites**
 
@@ -49,12 +49,12 @@ git clone https://github.com/thisisgss/portfolio_optimisation_app.git
 cd portfolio_optimisation_app
 ```
 
-#### **Step 2: Install Dependencies**
+#### **Step 2: Install Dependencies Reliably**
 
-Install all required libraries using the provided `requirements.txt` file (note that the PDF dependencies have been removed):
+Install all required libraries using the provided `requirements.txt` file. Using **`python3 -m pip`** is the most reliable way to ensure the packages are installed correctly for your current Python 3 environment:
 
 ```bash
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 #### **Step 3: Run the App**
@@ -71,7 +71,7 @@ The application will launch automatically in your default web browser, usually a
 
 ## ⚙️ Dependencies
 
-The application relies on the following key Python libraries, now simplified in `requirements.txt`:
+The application relies on the following key Python libraries, as listed in the simplified `requirements.txt`:
 
 | Library | Purpose |
 | :--- | :--- |
