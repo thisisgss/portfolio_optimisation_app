@@ -3,7 +3,7 @@
 
 ## Overview
 
-The **Portfolio Optimizer Pro** is a comprehensive financial web application built on **Streamlit** that utilizes the principles of **Modern Portfolio Theory (MPT)**, primarily the **Markowitz Efficient Frontier**, to help users find the optimal allocation of assets. It is designed to be an all-in-one tool for analysis, personalization, and planning.
+The **Portfolio Optimizer Pro** is a comprehensive financial web application built on **Streamlit** that utilizes the principles of **Modern Portfolio Theory (MPT)**, primarily the **Markowitz Efficient Frontier**, to help users find the optimal allocation of assets. It is designed to be an all-in-one tool for analysis, personalization, and investment planning.
 
 ## ✨ Key Features
 
@@ -17,8 +17,9 @@ The **Portfolio Optimizer Pro** is a comprehensive financial web application bui
       * Handles currency conversion automatically for USD and INR stocks.
   * **Historical Backtesting:**
       * Compares your personalized portfolio's cumulative growth against a major market **benchmark** (e.g., ^NSEI for NIFTY 50) over the entire historical data range.
-  * **Comprehensive PDF Report:**
-      * Generates a detailed, downloadable PDF report that summarizes the core metrics, personalized weights, investment breakdown, and the historical backtest chart.
+  * **Global Data Support:** Fetches real-time and historical stock data from Yahoo Finance (`yfinance`) for both US and Indian markets (NSE/BSE).
+
+-----
 
 ## 🚀 Getting Started
 
@@ -28,8 +29,8 @@ The easiest way to use the app is to access the live deployment.
 
 Click the badge below to launch the application instantly in your browser:
 
-[](https://www.google.com/search?q=https://thisisgss-portfolio-optimisation-app-app-l4lrbv.streamlit.app/)
-*(Please replace the above link with your actual Streamlit Cloud deployment URL.)*
+[](https://www.google.com/search?q=https://thisisgss-portfolio-optimisation_app-app-l4lrbv.streamlit.app/)
+*(Please ensure this link points to your current Streamlit deployment.)*
 
 ### 2\. 💻 Local Setup
 
@@ -50,7 +51,7 @@ cd portfolio_optimisation_app
 
 #### **Step 2: Install Dependencies**
 
-Install all required libraries using the provided `requirements.txt` file:
+Install all required libraries using the provided `requirements.txt` file (note that the PDF dependencies have been removed):
 
 ```bash
 pip install -r requirements.txt
@@ -66,18 +67,20 @@ streamlit run app.py
 
 The application will launch automatically in your default web browser, usually at `http://localhost:8501`.
 
+-----
+
 ## ⚙️ Dependencies
 
-The application relies on the following key Python libraries, all listed in `requirements.txt`:
+The application relies on the following key Python libraries, now simplified in `requirements.txt`:
 
 | Library | Purpose |
 | :--- | :--- |
 | **`streamlit`** | The core framework for creating the web interface. |
 | **`yfinance`** | Fetches historical and real-time stock and currency data. |
-| **`pandas`/`numpy`/`scipy`** | Fundamental tools for data manipulation, mathematical operations, and complex financial optimization. |
+| **`pandas`/`numpy`/`scipy`** | Fundamental tools for data manipulation, numerical operations, and complex financial optimization. |
 | **`plotly`** | Used to generate all interactive charts, including the Efficient Frontier, allocation pie charts, and backtest lines. |
-| **`fpdf2`** | Used to create and format the downloadable PDF financial report. |
-| **`kaleido`** | Plotly dependency required to export charts as static images for the PDF report. |
+
+-----
 
 ## 🤝 Contribution & Contact
 
