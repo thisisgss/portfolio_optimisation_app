@@ -31,6 +31,8 @@ Click the badge below to launch the application instantly in your browser:
 
 [Link](https://portfoliooptimisationapp-esi8juyttgjnkz4fqpkknr.streamlit.app)
 
+* Deployment in progress *
+
 ### 2\. 💻 Local Setup (Recommended)
 
 To run the application on your local machine:
