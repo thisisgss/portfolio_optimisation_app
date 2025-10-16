@@ -29,7 +29,7 @@ The easiest way to use the app is to access the live deployment.
 
 Click the badge below to launch the application instantly in your browser:
 
-[Link](https://portfoliooptimisationapp-esi8juyttgjnkz4fqpkknr.streamlit.app)
+[Link](https://portfoliooptimisationapp-78xxhappezqfssapucb9qjr.streamlit.app)
 
 * Deployment in progress *
 
