@@ -48,6 +48,8 @@ This tool replaces subjective guesswork with a data-driven approach, leveraging 
 
 You can run the application on your local machine by following these steps.
 
+[StreamLit Link](https://mpt-edu.streamlit.app) #Yet to be deployed
+
 #### Prerequisites
 
 You must have **Python 3.8+** installed on your system.
